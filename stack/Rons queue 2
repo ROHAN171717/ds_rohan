@@ -1,0 +1,90 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct queqe{
+    int size;
+    int f;
+    int r;
+    int *arr;
+};
+
+int isfull(struct queqe *q)
+{
+    if(q->r==q->size-1)
+    {
+        return 1;
+    }
+    else 
+    return 0;
+}
+int isempty(struct queqe *q)
+{
+    if(q->f==q->r)
+    {
+        return 1;
+    }
+    else 
+    return 0;
+}
+void enqueqe(struct queqe *q,int value)
+{
+    if(isfull(q))
+    {
+        printf("queqe overflow\n");
+    }
+    else
+    {
+        q->r++;
+        q->arr[q->r]=value;
+    }
+}
+int dequeqe(struct queqe *q)
+{
+    if(isempty(q))
+    {
+        printf("queqe underflow\n");
+    }
+    else
+    {
+        q->f++;
+        // q->arr[q->f]=value;
+        return q->arr[q->f];
+    }
+}
+
+int main()
+{
+    struct queqe q;
+    q.f=q.r=-1;
+    q.size=4;
+    q.arr=(int *)malloc(q.size*sizeof(int));
+
+    if(isempty(&q))
+    {
+        printf("First queqe is empty\n");
+    }
+
+    enqueqe(&q,12);
+    enqueqe(&q,2);
+    enqueqe(&q,1);
+    enqueqe(&q,10);
+    // enqueqe(&q,13);
+    // enqueqe(&q,17);
+    // enqueqe(&q,16);
+    // enqueqe(&q,16);
+    // enqueqe(&q,16);
+    // enqueqe(&q,16);
+    // enqueqe(&q,16);
+    // enqueqe(&q,15);
+
+    printf("dequeuing element %d\n",dequeqe(&q));
+    printf("dequeuing element %d\n",dequeqe(&q));
+    printf("dequeuing element %d\n",dequeqe(&q));
+    printf("dequeuing element %d\n",dequeqe(&q));
+    // printf("dequeuing element %d\n",dequeqe(&q));
+    // printf("dequeuing element %d\n",dequeqe(&q));
+    //  enqueqe(&q,12);
+
+   
+    return 0;
+}
