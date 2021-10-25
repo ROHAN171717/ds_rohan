@@ -1,0 +1,72 @@
+// Implement circular queue using array that performs following operations : INSERT, DELETE, DISPLAY
+
+#include <stdio.h>
+#define N 5
+
+int q[N];
+int f = -1, r = -1;
+
+void insert(int);
+int delete();
+void display();
+
+void main(){
+    insert(10);
+    insert(20);
+    insert(30);
+    insert(40);
+    insert(50);
+    delete();
+    delete();
+    insert(60);
+    insert(70);
+    display();
+}
+
+void insert(int x){
+    if(r==N-1)    // reset rear pointer
+        r=0;
+    else
+        r++;
+    
+    if(f==r){   // check overflow
+        printf("\nQueue Overflow\n");
+        return;
+    }
+
+    q[r] = x;   // insert element
+
+    if(f==-1)   // is front pointer properly set
+        f=0;
+}
+
+int delete(){
+    if(f==-1){       //check for underflow
+        printf("\nQueue Underflow\n");
+        return -1;
+    }
+    int y = q[f];
+    q[f] = -1;
+    if(f==r){
+        f = r = -1;
+        return y;
+    }
+    if(f==N-1)        //reset front pointer
+        f = 0;
+    else 
+        f++;
+    return y;
+}
+
+void display(){
+    if(f<=r){
+        for(int i = f ; i<=r ; i++){
+            printf("%d ", q[i]);
+        }
+    } else {
+        for(int i = f ; i<N ; i++)
+            printf("%d ", q[i]);
+        for(int i = 0 ; i<=r ; i++)
+            printf("%d ", q[i]);
+    }
+}
