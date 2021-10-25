@@ -1,0 +1,26 @@
+//Implement a program to create a node of singly linked list. Read the data in node, print the node and release the memory of the node
+
+#include <stdio.h>
+#include <stdlib.h>
+
+//Node structure
+struct Node{
+    int data;
+    struct Node* next;
+};
+
+int main(){
+    struct Node* head = NULL;       //creating head node
+    head = (struct Node*)malloc(sizeof(struct Node));       //allocating memory dynamically
+
+    //initializing fields
+    head->data = 10;
+    head->next = NULL;
+    
+    //printing data
+    printf("\nData of the node : %d\n\n", head->data);
+    
+    //releasing memory of the node
+    free(head);
+    return 0;
+}
