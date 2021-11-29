@@ -1,0 +1,104 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node
+{
+    int data;
+    struct node *prev;
+    struct node *next;
+};
+
+void LinkedListTraversalForward(struct node *head)
+{
+    struct node *ptr=head;
+    while (ptr != NULL)
+    {
+        printf("element=%d\n", ptr->data);
+        ptr = ptr->next;
+    }
+}
+
+struct node *deleteFirstNode(struct node *head)
+{
+     struct node *ptr = head;
+    // struct node *p=head;
+    head=head->next;
+    free(ptr);
+    head->prev=NULL;
+}
+
+struct node *deleteAtPos(struct node *head, int index)
+{
+    struct node *p = head;
+    struct node *q = head->next;
+
+    for (int i = 0; i < index - 1; i++)
+    {
+        p = p->next;
+        q = q->next;
+    }
+    p->next = q->next;
+    free(q);
+    return head;
+}
+
+struct node *deleteAtLast(struct node *head)
+{
+    struct node *p = head;
+    struct node *q = head->next;
+
+    while (q->next != NULL)
+    {
+        p = p->next;
+        q = q->next;
+    }
+    p->next = NULL;
+    free(q);
+    return head;
+}
+
+int main()
+{
+     struct node *head;
+    struct node *second;
+    struct node *third;
+    struct node *fourth;
+    struct node *fifth;
+
+    head = (struct node *)malloc(sizeof(struct node));
+    second = (struct node *)malloc(sizeof(struct node));
+    third = (struct node *)malloc(sizeof(struct node));
+    fourth = (struct node *)malloc(sizeof(struct node));
+    fifth = (struct node *)malloc(sizeof(struct node));
+
+    head->data = 5;
+    head->prev=NULL;
+    head->next = second;
+
+    second->data = 10;
+    second->prev=head;
+    second->next = third;
+
+    third->data = 15;
+    third->prev=second;
+    third->next = fourth;
+
+    fourth->data = 20;
+    fourth->prev=third;
+    fourth->next = fifth;
+
+    fifth->data = 25;
+    fifth->prev=fourth;
+    fifth->next = NULL;
+
+    printf("\n--Doubly Linked List Before Deletion(Forward Direction)--\n");
+    LinkedListTraversalForward(head);
+    
+    //   head = deleteFirstNode(head);
+    head=deleteAtPos(head,2);
+    // head=deleteAtLast(head);
+    // head = deleteWithValue(head,5);
+     printf("\n--Linked List After Deletion--\n");
+    LinkedListTraversalForward(head);
+    return 0;
+}
