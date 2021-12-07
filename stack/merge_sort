@@ -1,0 +1,186 @@
+#include<stdio.h>
+
+
+// void merge(int arr[], int mid, int low, int high)
+// {
+//     int i, j, k, B[100];
+//     i = low;
+//     j = mid + 1;
+//     k = low;
+
+//     while (i <= mid && j <= high)
+//     {
+//         if (arr[i] < arr[j])
+//         {
+//             B[k] = arr[i];
+//             i++;
+//             k++;
+//         }
+//         else
+//         {
+//             B[k] = arr[j];
+//             j++;
+//             k++;
+//         }
+//     }
+//     while (i <= mid)
+//     {
+//         B[k] = arr[i];
+//         k++;
+//         i++;
+//     }
+//     while (j <= high)
+//     {
+//         B[k] = arr[j];
+//         k++;
+//         j++;
+//     }
+//     for (int i = low; i <= high; i++)
+//     {
+//         arr[i] = B[i];
+//     }
+// }
+
+void merge(int arr[],int m,int l,int h)
+{
+    int n1=m-l+1,n2=h-m;
+    int left[n1],right[n2];
+
+    for(int i=0;i<n1;i++)
+    {
+        left[i]=arr[l+i];
+    }
+    for(int j=0;j<n2;j++)
+    {
+        right[j]=arr[m+1+j];
+    }
+    int i=0,j=0,k=l;
+     while(i<n1 && j<n2)
+    {
+        if(left[i]<=right[j])
+        {
+            arr[k++]=left[i++];
+        }
+        else
+        {
+            arr[k++]=right[j++];
+        }
+    }
+    while(i<n1)
+    {
+         arr[k++]=left[i++];
+    }
+    while(j<n2)
+    {
+         arr[k++]=right[j++];
+    }
+}
+
+
+void merge_sort(int arr[],int l,int r)
+{
+//    printf("first ");
+    int m;
+    if(r>l)
+    {
+        // printf("second ");
+        m=(l+r)/2;
+        merge_sort(arr,l,m);
+        merge_sort(arr,m+1,r);
+        merge(arr,m,l,r);
+    }
+}
+
+int main()
+{
+    int n;
+    printf("enter the number of element to store in array:");
+    scanf("%d",&n);
+
+    int arr[n];
+    for(int i=0;i<n;i++)
+    {
+        scanf("%d",&arr[i]);
+    }
+
+   merge_sort(arr,0,n-1);
+   for(int i=0;i<n;i++)
+   {
+       printf("%d ",arr[i]);
+   }
+   return 0;
+
+}
+
+// #include <stdio.h>
+
+// void printArray(int *A, int n)
+// {
+//     for (int i = 0; i < n; i++)
+//     {
+//         printf("%d ", A[i]);
+//     }
+//     printf("\n");
+// }
+
+// void merge(int A[], int mid, int low, int high)
+// {
+//     int i, j, k, B[100];
+//     i = low;
+//     j = mid + 1;
+//     k = low;
+
+//     while (i <= mid && j <= high)
+//     {
+//         if (A[i] < A[j])
+//         {
+//             B[k] = A[i];
+//             i++;
+//             k++;
+//         }
+//         else
+//         {
+//             B[k] = A[j];
+//             j++;
+//             k++;
+//         }
+//     }
+//     while (i <= mid)
+//     {
+//         B[k] = A[i];
+//         k++;
+//         i++;
+//     }
+//     while (j <= high)
+//     {
+//         B[k] = A[j];
+//         k++;
+//         j++;
+//     }
+//     for (int i = low; i <= high; i++)
+//     {
+//         A[i] = B[i];
+//     }
+    
+// }
+
+// void mergeSort(int A[], int low, int high){
+//     int mid; 
+//     if(low<high){
+//         mid = (low + high) /2;
+//         mergeSort(A, low, mid);
+//         mergeSort(A, mid+1, high);
+//         merge(A, mid, low, high);
+//     }
+// }
+
+// int main()
+// {
+//     // int A[] = {9, 14, 4, 8, 7, 5, 6};
+//     int A[] = {9, 1, 4, 14, 4, 15, 6};
+//     int n = 7;
+//     printArray(A, n);
+//     mergeSort(A, 0, 6);
+//     printArray(A, n);
+//     return 0;
+// }
